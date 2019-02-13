@@ -5,24 +5,39 @@ html, body {
 	height: 100%;
 }
 
+html {
+	background: url("../images/main_img.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
+.solid {
+	background-color: #fff;
+	width: 82%;
+	height: 100%;
+	opacity: .75;
+	position: fixed;
+	left: 18%;
+	z-index: 10;
+}
 
 .menu {
 	background-color: #3E8C78;
 	height: 100%;
 	min-width: 180px;
-	transition-duration: 3s;
+	transition-duration: 1s;
 	width: 18%;
 	float: left;
-	border-right: 10px solid #CAFFEB;
 	text-align: center;
+	z-index: 20;
 }
 
 main {
-	/* display: grid;
+	display: grid;
 	grid-template-columns: minmax(140px, 18%) 1fr 3fr 1fr;
-	grid-template-rows: 1fr; */
-
+	grid-template-rows: 1fr;
 }
 
 h2 {
@@ -32,7 +47,7 @@ h2 {
 }
 
 button {
-	width: 150px;
+	width: 85%;
 	height: 70px;
 	border: 2px rgba(90, 204, 175, 0.25) solid;
 	border-radius: 4px;
@@ -41,5 +56,20 @@ button {
 	color: #CAFFEB;
 	font-size: .85em;
 	background-color: #3E8C78;
+	transition-duration: 1s;
+}
 
+button:hover {
+	background-color: rgba(90, 204, 175, 0.25);
+	transition-duration: 0s;
+	text-decoration: none;
+}
+
+button:active {
+	background-color: rgba(90, 204, 175, 0.75);
+	text-decoration: none;
+}
+
+button:focus {
+	outline:0;
 }
