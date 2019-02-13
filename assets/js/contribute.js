@@ -15,10 +15,6 @@ function listSongsInProgress() {
 
 	fetch('http://localhost:3000/api/v1/songs')
 	.then(response => response.json())
-	.then(songs => songs.forEach(song => {
-
-		console.log(song.title);
-
-	}))
+	.then(console.log)
 
 }
