@@ -43,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () =>{
             "Accept": "application/json"
           },
       body: JSON.stringify({
-        title: newSongTitle
+        title: newSongTitle.value
       })
     }).then(res => res.json())
     .then(data => showNewlyCreatedSong(data))
-  }
+  };
 
   function newSongForm() {
     container.innerHTML = '';
@@ -56,12 +56,13 @@ document.addEventListener("DOMContentLoaded", () =>{
     songCard.innerHTML = `
       <form id="new-song-form">
       <input id="new-song-title" type="text" placeholder="Song Title">
-      <button id="submit-new-song" type="submit">
+      <button id="submit-new-song" type="submit" class="container-buttons">
       </form>
     `;
     container.append(songCard);
     const newSongForm = document.getElementById("new-song-form");
     newSongForm.addEventListener('click', e => {
+      e.preventDefault();
       if (e.target.id === "submit-new-song") {
         createSong(e)
       }

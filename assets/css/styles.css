@@ -88,6 +88,7 @@ button:focus {
 	outline:0;
 }
 
-.new-song-form {
-	grid-column-start: 3;
+.container-buttons {
+	height: 50px;
+	width: 150px;
 }
