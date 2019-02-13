@@ -29,18 +29,44 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   };
 
+  function showNewlyCreatedSong(data) {
+    console.log(data)
+    container.innerHTML = '';
+  }
+
+  function createSong(e) {
+    const newSongTitle = document.getElementById("new-song-title");
+    fetch(`${apiURL}songs`, {
+      method: 'POST',
+      headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+      body: JSON.stringify({
+        title: newSongTitle
+      })
+    }).then(res => res.json())
+    .then(data => showNewlyCreatedSong(data))
+  }
+
   function newSongForm() {
     container.innerHTML = '';
     const songCard = document.createElement("div");
     songCard.className = "song-card";
     songCard.innerHTML = `
-      <form>
-      <input id="new-song-form" type="text" placeholder="Song Title">
+      <form id="new-song-form">
+      <input id="new-song-title" type="text" placeholder="Song Title">
       <button id="submit-new-song" type="submit">
       </form>
     `;
     container.append(songCard);
-  }
+    const newSongForm = document.getElementById("new-song-form");
+    newSongForm.addEventListener('click', e => {
+      if (e.target.id === "submit-new-song") {
+        createSong(e)
+      }
+    })
+  };
 
   sideBar.addEventListener('click', (e) => {
     switch(e.target.id) {

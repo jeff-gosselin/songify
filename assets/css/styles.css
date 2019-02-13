@@ -74,3 +74,7 @@ button:active {
 button:focus {
 	outline:0;
 }
+
+.new-song-form {
+	grid-column-start: 3;
+}
