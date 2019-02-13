@@ -20,10 +20,11 @@ html {
 	opacity: .75;
 	position: fixed;
 	left: 18%;
-	z-index: 10;
+	z-index: -1;
 }
 
 .menu {
+	position: fixed;
 	background-color: #3E8C78;
 	height: 100%;
 	min-width: 180px;
@@ -31,12 +32,24 @@ html {
 	width: 18%;
 	float: left;
 	text-align: center;
-	z-index: 20;
+	z-index: 2;
+}
+
+.side-blocker {
+	width: 18%;
+	float: left;
+	height: 100%;
+	min-width: 180px;
+}
+
+.container {
+	float: left;
+	padding: 60px;
 }
 
 main {
 	display: grid;
-	grid-template-columns: minmax(140px, 18%) 1fr 3fr 1fr;
+	grid-template-columns: 1fr 3fr 1fr;
 	grid-template-rows: 1fr;
 }
 
