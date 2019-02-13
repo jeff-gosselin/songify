@@ -30,8 +30,9 @@ document.addEventListener("DOMContentLoaded", () =>{
   };
 
   function showNewlyCreatedSong(data) {
-    console.log(data)
+    console.log("Hello from inside showNewlyCreatedSong!")
     container.innerHTML = '';
+    console.log(data)
   }
 
   function createSong(e) {
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         title: newSongTitle.value
       })
     }).then(res => res.json())
-    .then(data => showNewlyCreatedSong(data))
+    .then(showNewlyCreatedSong)
   };
 
   function newSongForm() {
