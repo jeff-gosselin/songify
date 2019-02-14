@@ -48,7 +48,6 @@ function hoverSound(e) {
 }
 
 function showSongInProgress(e) {
-	console.log(e.target.dataset.id);
 	let id = e.target.dataset.id;
 
 	fetch(`http://localhost:3000/api/v1/songs/${id}`)
@@ -61,11 +60,32 @@ function showSongInProgress(e) {
 			<h1 class="headline">${song.title}</h1>`
 
 		// song.snippets.forEach(snippet => {
-			console.log(song);
+		//	console.log(song);
 		// })
+
+
+		verseSectionForm();
 
 	})
 
-	.then(console.log)
 
+}
+
+
+function verseSectionForm() {
+	const container = document.querySelector('.container');
+	let vForm = document.createElement('form');
+
+	//vForm.setAttribute("data-id", )
+	vForm.innerHTML = `
+		<textarea data-type="verse" placeholder="Drop a line or two here." rows="2"></textarea>
+		<input name="submit" type="submit">
+	`;
+	vForm.submit.addEventListener('click', submitSnippet);
+	container.append(vForm);
+}
+
+function submitSnippet(e) {
+	e.preventDefault();
+	console.log("Snippet Submitted");
 }
