@@ -69,7 +69,7 @@ function showSongInProgress(e) {
 
 
 
-		verseSectionForm();
+		// verseSectionForm();
 
 	})
 
@@ -77,22 +77,37 @@ function showSongInProgress(e) {
 }
 
 
-function verseSectionForm() {
-	const container = document.querySelector('.container');
+function verseSectionForm(div) {
+	// const container = document.querySelector('.container');
 	let vForm = document.createElement('form');
 	vForm.className = "snippet-form"
+
 	//vForm.setAttribute("data-id", )
 	vForm.innerHTML = `
 		<textarea name="snippet" class="effect-1" data-type="verse" placeholder="Drop a line or two here." rows="2"></textarea>
 		<input class="submit" name="submit" type="submit" value="Submit Lyrical Snippet">
 	`;
 	vForm.addEventListener('submit', submitSnippet);
-	container.append(vForm);
+	div.append(vForm);
 }
 
 function submitSnippet(e) {
 	e.preventDefault();
-	console.log(e.target.snippet.value);
+	const section_id = e.target.parentElement.id.slice(8);
+	const content = e.target.snippet.value;
+
+	fetch(`http://localhost:3000/api/v1/snippets`, {
+		method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+		},
+		body: JSON.stringify({
+			section_id,
+			content
+		})
+	}).then(res => res.json())
+	.then(snippet => console.log(snippet))
 }
 
 function displaySections(song) {
@@ -125,6 +140,18 @@ function displaySections(song) {
 
 	})
 
+	const existingSectionDivs = Array.from(document.getElementsByClassName("section-div"))
+	existingSectionDivs.forEach(div => verseSectionForm(div))
+	if(existingSectionDivs.length = 0){
+		const sectionDiv = document.createElement('div');
+		const labelDiv = document.createElement('div');
+		labelDiv.className = "section-label";
+		sectionDiv.style.position = "relative";
+		sectionDiv.className = "section-div"
+		container.append(sectionDiv);
+		sectionDiv.append(labelDiv);
+		verseSectionForm(sectionDiv)
+	}
 	// console.log(sectionContentArray);
 
 }
