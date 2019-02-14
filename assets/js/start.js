@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   };
 
-  function addSectionWithSnippet(e) {
+  function addSection(e) {
     const songId = e.target.parentElement.id.slice(5);
     fetch(`${apiURL}sections`, {
       method: `POST`,
@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () =>{
         song_id: songId,
         section_type: 'verse'
       })
-    }).then(console.log)
+    }).then(res => data.json)
+    .then(console.log)
   }
 
   async function showNewlyCreatedSong() {
@@ -59,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () =>{
     title.innerText = lastSong.title;
     container.append(title);
 
-    for(i = 0; i < 5; i++){
     const newSectionDiv = document.createElement("div");
     newSectionDiv.class = `song-${lastSongId}`;
     const newSnippetForm = document.createElement("form");
@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () =>{
     const verseOption = document.createElement("option");
     verseOption.value = "verse";
     verseOption.innerText = "Verse";
-
-
     const newSnippetButton = document.createElement("button");
-    newSnippetButton.class = "submit-new-snippet";
+    newSnippetButton.class = "submit-new-snippet container-buttons";
+    newSnippetButton.innerText = "Submit"
+
     container.append(newSectionDiv);
     newSectionDiv.append(newSnippetForm);
     newSnippetForm.append(newSnippetInput);
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     newSnippetDropDown.append(verseOption);
     newSnippetForm.append(newSnippetButton);
 
-    newSectionDiv.addEventListener('submit', e => {e.preventDefault(); addSectionWithSnippet(e)})}
-  }
+    newSectionDiv.addEventListener('submit', e => {e.preventDefault(); addSection(e)})}
+
 
   function createSong(e) {
     const newSongTitle = document.getElementById("new-song-title");
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     songCard.innerHTML = `
       <form id="new-song-form">
       <input id="new-song-title" type="text" placeholder="Song Title"><br>
-      <button id="submit-new-song" type="submit" class="container-buttons">
+      <button id="submit-new-song" type="submit" class="container-buttons">Submit</button>
       </form>
     `;
     container.append(songCard);

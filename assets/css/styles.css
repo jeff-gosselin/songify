@@ -137,3 +137,7 @@ h2 {
 	border-radius: 4px;
 	visibility: hidden;
 }
+
+.submit-new-snippet {
+	width: 150px;
+}
