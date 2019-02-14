@@ -16,7 +16,6 @@ function listSongsInProgress() {
 
 	fetch('http://localhost:3000/api/v1/songs')
 	.then(response => response.json())
-<<<<<<< HEAD
 	.then(songs => songs.forEach(song => {
 
 		if (song.complete === false) {
@@ -33,8 +32,6 @@ function listSongsInProgress() {
 		}
 
 	}))
-=======
 	.then(console.log)
->>>>>>> 11d86e1d3a234609cd06eddb58ba61aea8475948
 
 }
