@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     return snippets
   }
 
+
+
   async function addSnippet(data, e) {
     const section_id = data.id
     const content = e.target[0].value
