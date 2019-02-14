@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", () =>{
         section_id,
         content
       })
-    })
+    }).then(res => res.json())
+    .then(listSongsInProgress)
   }
 
 
