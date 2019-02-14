@@ -39,6 +39,7 @@ function listSongsInProgress() {
 		}
 
 	}))
+
 }
 
 function hoverSound(e) {
@@ -65,5 +66,6 @@ function showSongInProgress(e) {
 
 	})
 
+	.then(console.log)
 
 }

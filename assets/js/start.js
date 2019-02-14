@@ -29,10 +29,30 @@ document.addEventListener("DOMContentLoaded", () =>{
 
   };
 
-  function showNewlyCreatedSong(data) {
-    console.log("Hello from inside showNewlyCreatedSong!")
+  async function showNewlyCreatedSong() {
     container.innerHTML = '';
-    console.log(data)
+    const songs = await fetchSongs();
+    const lastSongId = songs[songs.length - 1].id
+    const lastSong = songs.find(song => song.id === lastSongId)
+
+
+    const title = document.createElement("h2");
+    title.innerText = lastSong.title;
+    container.append(title);
+
+    const newSectionDiv = document.createElement("div");
+    newSectionDiv.id = "new-section";
+    const newSnippetForm = document.createElement("form");
+    newSnippetForm.class = "new-snippet-form"
+    const newSnippetInput = document.createElement("input");
+    newSnippetInput.class = "new-snippet-content";
+    const newSnippetButton = document.createElement("button");
+    newSnippetButton.class = "submit-new-snippet";
+    container.appendChild(newSectionDiv);
+    newSectionDiv.appendChild(newSnippetForm);
+    newSnippetForm.appendChild(newSnippetInput);
+    newSnippetForm.appendChild(newSnippetButton);
+
   }
 
   function createSong(e) {
@@ -46,8 +66,7 @@ document.addEventListener("DOMContentLoaded", () =>{
       body: JSON.stringify({
         title: newSongTitle.value
       })
-    }).then(res => res.json())
-    .then(showNewlyCreatedSong)
+    }).then(() => showNewlyCreatedSong())
   };
 
   function newSongForm() {
@@ -85,3 +104,54 @@ document.addEventListener("DOMContentLoaded", () =>{
   });
 
 });
+
+
+
+
+
+
+
+
+// CODE GRAVEYARD FOR POSSIBLE RESSURECTION
+
+
+// const sections = await fetchSections();
+// const theseSections = sections.filter(section => section.song_id === lastSongId)
+//
+// const snippets = await fetchSnippets();
+// const theseSnippets = [];
+// theseSections.forEach(section => {
+  //   snippets.forEach(snippet => {
+    //     if(section.id === snippet.section_id) {
+      //       theseSnippets.push(snippet)
+      //     }
+      //   })
+      // })
+
+// theseSections.map(section => {
+  //   const sectionDiv = documentCreatElement("div");
+  //   sectionDiv.id = `section-${section.id}`;
+  //   sectionDiv.innerText = section.section_type
+  //   container.appendChild(sectionDiv)
+  // })
+  //
+  // theseSnippets.map(snippet => {
+    //   const snippetDiv = document.createElement("div");
+    //   const mySection = document.getElementById(`section-${snippet.section_id}`);
+    //   snippetDiv.id = `snippet-${snippet.id}`;
+    //   snippetDiv.innerText = snippet.content;
+    //   mySection.appendChild(snippetDiv);
+    // })
+    //
+    // theseSections.forEach(section => {
+      //   const sectionDiv = document.getElementById(`section-${section.id}`);
+      //   const newSnippetForm = document.createElement("form");
+      //   newSnippetForm.class = "new-snippet-form"
+      //   const newSnippetInput = document.createElement("input");
+      //   newSnippetInput.class = "new-snippet-content";
+      //   const newSnippetButton = documetn.createElement("button");
+      //   newSnippetButton.class = "submit-new-snippet";
+      //   sectionDiv.appendChild(newSnippetForm);
+      //   newSnippetForm.appendChild(newSnippetInput);
+      //   newSnippetForm.appendChild(newSnippetButton);
+      // })
