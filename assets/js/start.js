@@ -21,53 +21,58 @@ document.addEventListener("DOMContentLoaded", () =>{
     return snippets
   }
 
-  async function viewCompletedSongs() {
+  async function addSnippet(data, e) {
+    const section_id = data.id
+    const content = e.target[0].value
+
+    fetch(`${apiURL}snippets`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        section_id,
+        content
+      })
+    })
+  }
+
+
+  async function addSection(e) {
+    const song_id = e.target.parentElement.className.slice(5);
     const songs = await fetchSongs();
-    const sections = await fetchSections();
-    const snippets = await fetchSnippets();
-
-    const songCard = document.createElement("div");
-    songCard.className = "song-card";
-
-  };
-
-  function addSection(e) {
-    const songId = e.target.parentElement.id.slice(5);
+    const song = songs.find(song => song.id === song_id);
     fetch(`${apiURL}sections`, {
-      method: `POST`,
+      method: 'POST',
       headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
       body: JSON.stringify({
-        song_id: songId,
+        song_id,
         section_type: 'verse'
       })
-    }).then(res => data.json)
-    .then(console.log)
+    }).then(res => res.json())
+    .then(data => addSnippet(data, e))
   }
 
-  async function showNewlyCreatedSong() {
+  async function showNewlyCreatedSong(data) {
     container.innerHTML = '';
-    const songs = await fetchSongs();
-    const lastSongId = songs[songs.length - 1].id
-    const lastSong = songs.find(song => song.id === lastSongId)
-
-
     const title = document.createElement("h2");
-    title.id = `song-${lastSongId}`
+    title.id = `song-${data.id}`
     title.class = `song-title`
-    title.innerText = lastSong.title;
+    title.innerText = data.title;
     container.append(title);
 
     const newSectionDiv = document.createElement("div");
-    newSectionDiv.class = `song-${lastSongId}`;
+    newSectionDiv.className = `song-${data.id}`;
     const newSnippetForm = document.createElement("form");
-    newSnippetForm.class = "new-snippet-form";
+    newSnippetForm.className = "new-snippet-form";
     const newSnippetInput = document.createElement("input");
-    newSnippetInput.class = "new-snippet-content";
+    newSnippetInput.className = "new-snippet-content";
     const newSnippetDropDown = document.createElement("select");
-    newSnippetDropDown.class = "section-type";
+    newSnippetDropDown.className = "section-type";
     const chorusOption = document.createElement("option");
     chorusOption.value = "chorus";
     chorusOption.innerText = "Chorus";
@@ -75,19 +80,23 @@ document.addEventListener("DOMContentLoaded", () =>{
     verseOption.value = "verse";
     verseOption.innerText = "Verse";
     const newSnippetButton = document.createElement("button");
-    newSnippetButton.class = "submit-new-snippet container-buttons";
+    newSnippetButton.className = "submit-new-snippet container-buttons";
     newSnippetButton.innerText = "Submit"
+
+    const br = document.createElement("br");
 
     container.append(newSectionDiv);
     newSectionDiv.append(newSnippetForm);
     newSnippetForm.append(newSnippetInput);
-    newSnippetForm.append(newSnippetDropDown);
+    newSnippetForm.append(br);
     newSnippetForm.append(newSnippetDropDown);
     newSnippetDropDown.append(chorusOption);
     newSnippetDropDown.append(verseOption);
+    newSnippetForm.append(br);
     newSnippetForm.append(newSnippetButton);
 
-    newSectionDiv.addEventListener('submit', e => {e.preventDefault(); addSection(e)})}
+    newSectionDiv.addEventListener('submit', e => {e.preventDefault(); addSection(e)})
+  }
 
 
   function createSong(e) {
@@ -101,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () =>{
       body: JSON.stringify({
         title: newSongTitle.value
       })
-    }).then(() => showNewlyCreatedSong())
+    }).then(res => res.json())
+    .then(showNewlyCreatedSong)
   };
 
   function newSongForm() {
@@ -156,19 +166,19 @@ document.addEventListener("DOMContentLoaded", () =>{
 // const snippets = await fetchSnippets();
 // const theseSnippets = [];
 // theseSections.forEach(section => {
-  //     snippets.forEach(snippet => {
-    //         if(section.id === snippet.section_id) {
-      //             theseSnippets.push(snippet)
-      //           }
-      //         })
-      //       })
+//       snippets.forEach(snippet => {
+//             if(section.id === snippet.section_id) {
+//                   theseSnippets.push(snippet)
+//                 }
+//               })
+//             })
 
       // theseSections.map(section => {
-        //   const sectionDiv = documentCreatElement("div");
-        //   sectionDiv.id = `section-${section.id}`;
-        //   sectionDiv.innerText = section.section_type
-        //   container.appendChild(sectionDiv)
-        // })
+      //     const sectionDiv = documentCreatElement("div");
+      //     sectionDiv.id = `section-${section.id}`;
+      //     sectionDiv.innerText = section.section_type
+      //     container.appendChild(sectionDiv)
+      //   })
         //
         // theseSnippets.map(snippet => {
           //   const snippetDiv = document.createElement("div");
