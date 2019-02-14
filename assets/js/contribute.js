@@ -120,7 +120,7 @@ function verseSectionForm(div) {
 
 	//vForm.setAttribute("data-id", )
 	vForm.innerHTML = `
-		<textarea name="snippet" class="effect-1" data-type="verse" placeholder="Drop a line or two here." rows="2"></textarea>
+		<textarea name="snippet" class="effect-1" data-type="verse" placeholder="Drop a line or two here." rows="2" required></textarea>
 		<input class="submit" name="submit" type="submit" value="Submit Lyrical Snippet">
 	`;
 	vForm.addEventListener('submit', submitSnippet);
@@ -155,6 +155,10 @@ function displaySections(song) {
 	// })
 	// console.log(verse);
 
+	// if (song.sections.length === 0) {
+	// 	verseSectionForm();
+	// }
+
 	song.sections.forEach(section => {
 		const sectionDiv = document.createElement('div');
 		const labelDiv = document.createElement('div');
@@ -178,7 +182,7 @@ function displaySections(song) {
 
 	const existingSectionDivs = Array.from(document.getElementsByClassName("section-div"))
 	existingSectionDivs.forEach(div => verseSectionForm(div))
-	if(existingSectionDivs.length = 0){
+	if(existingSectionDivs.length === 0){
 		const sectionDiv = document.createElement('div');
 		const labelDiv = document.createElement('div');
 		labelDiv.className = "section-label";
