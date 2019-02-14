@@ -55,7 +55,7 @@ html {
 
 .container {
 	float: left;
-	padding-left: 60px;
+	padding-left: 80px;
 }
 
 main {
@@ -156,4 +156,69 @@ h2 {
 #instructions {
 	font-size: 20px;
 	color: rgba(61, 100, 122, 0.85);
+}
+
+.section-div {
+	padding: 10px;
+	padding-left: 60;
+	font-size: 20px;
+	min-width: 500px;
+	color: rgba(61, 100, 122, 0.85);
+}
+
+.section-label {
+	padding: 3px;
+	border-bottom: 1px solid #ababab;
+	width: 36px;
+	height: 18px;
+	text-align: center;
+	border-radius: 3px;
+	position: relative;
+	left: -60px;
+	top: 16px;
+	text-align: center;
+
+}
+
+.section-label-text {
+	color: #ababab;
+	font-size: 15px;
+	font-family: 'PT Sans', sans-serif;
+	font-style: italic;
+	line-height: 18px;
+
+}
+
+.snippet-form {
+	margin-top: 40px;
+}
+
+.snippet-form textarea {
+	font: 20px 'PT Sans', sans-serif;
+	color: rgba(0,0,0,0.45);
+	width: 90%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	display: block;
+	border-radius: 5px;
+	resize: none;
+	border-color: rgba(0,0,0,0.25);
+	padding: 10px;
+}
+
+.snippet-form textarea::placeholder { /* Most modern browsers support this now. */
+   color:    #cdcdcd;
+}
+
+.submit {
+	border-radius: 4px;
+	padding: 10px;
+	padding-left: 14px;
+	padding-right: 14px;
+	margin-top: 18px;
+	background-color: rgb(127, 185, 241);
+	color: #fff;
+}
+
+
 }

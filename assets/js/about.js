@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function showContent() {
-	console.log("Hello");
 	const container = document.querySelector('.container');
 	container.style.color = 'rgb(61, 100, 122)';
 	container.innerHTML = `

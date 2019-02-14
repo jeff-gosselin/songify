@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function listSongsInProgress() {
-	console.log("Hello");
 	const container = document.querySelector('.container');
 	container.style.color = 'rgb(61, 100, 122)';
 	container.innerHTML = `
@@ -57,11 +56,17 @@ function showSongInProgress(e) {
 		const container = document.querySelector('.container');
 		container.style.color = 'rgb(61, 100, 122)';
 		container.innerHTML = `
-			<h1 class="headline">${song.title}</h1>`
+			<h1 class="headline">${song.title}</h1>`;
+			displaySections(song);
 
-		// song.snippets.forEach(snippet => {
-		//	console.log(song);
+
+
+		// song.sections.forEach(section => {
+		// 	console.log(section);
 		// })
+
+
+
 
 
 		verseSectionForm();
@@ -75,17 +80,51 @@ function showSongInProgress(e) {
 function verseSectionForm() {
 	const container = document.querySelector('.container');
 	let vForm = document.createElement('form');
-
+	vForm.className = "snippet-form"
 	//vForm.setAttribute("data-id", )
 	vForm.innerHTML = `
-		<textarea data-type="verse" placeholder="Drop a line or two here." rows="2"></textarea>
-		<input name="submit" type="submit">
+		<textarea name="snippet" class="effect-1" data-type="verse" placeholder="Drop a line or two here." rows="2"></textarea>
+		<input class="submit" name="submit" type="submit" value="Submit Lyrical Snippet">
 	`;
-	vForm.submit.addEventListener('click', submitSnippet);
+	vForm.addEventListener('submit', submitSnippet);
 	container.append(vForm);
 }
 
 function submitSnippet(e) {
 	e.preventDefault();
-	console.log("Snippet Submitted");
+	console.log(e.target.snippet.value);
+}
+
+function displaySections(song) {
+	// let sectionContentArray = [];
+	let p = document.createElement('p');
+	const container = document.querySelector('.container');
+	// let verse = song.sections.filter(section => {
+	// 		section.section_type === "verse"
+	// })
+	// console.log(verse);
+
+	song.sections.forEach(section => {
+		const sectionDiv = document.createElement('div');
+		const labelDiv = document.createElement('div');
+		labelDiv.className = "section-label";
+		labelDiv.innerHTML = `<span class="section-label-text">${section.section_type}</span>`;
+		sectionDiv.style.position = "relative";
+		sectionDiv.id = `section-${section.id}`;
+		sectionDiv.className = "section-div"
+		container.append(sectionDiv);
+		sectionDiv.append(labelDiv);
+	})
+
+	song.snippets.forEach(snippet => {
+		const sectionDiv = document.getElementById(`section-${snippet.section_id}`);
+		const snippetDiv = document.createElement('div');
+		snippetDiv.id = `snippet-${snippet.id}`;
+		snippetDiv.innerText = snippet.content;
+		sectionDiv.append(snippetDiv);
+
+	})
+
+	// console.log(sectionContentArray);
+
 }
