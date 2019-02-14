@@ -44,7 +44,7 @@ html {
 
 .container {
 	float: left;
-	padding: 60px;
+	padding-left: 60px;
 }
 
 main {
@@ -56,11 +56,11 @@ main {
 h2 {
 	color: #fff;
 	text-align: center;
-	font-size: 1.5em;
-	
+	font-size: 24px;
+
 }
 
-button {
+#start, #contribute, #view {
 	width: 85%;
 	height: 70px;
 	border: 2px rgba(90, 204, 175, 0.25) solid;
@@ -73,23 +73,67 @@ button {
 	transition-duration: 1s;
 }
 
-button:hover {
+#start:hover, #contribute:hover, #view:hover {
 	background-color: rgba(90, 204, 175, 0.25);
 	transition-duration: 0s;
 	text-decoration: none;
 	/* color: rgb(103, 169, 207); */
 }
 
-button:active {
+#start:active, #contribute:active, #view:active {
 	background-color: rgba(90, 204, 175, 0.75);
 	text-decoration: none;
 }
 
-button:focus {
+#start:focus, #contribute:focus, #view:focus {
 	outline:0;
+}
+
+.headline {
+	font-size: 40px;
 }
 
 .container-buttons {
 	height: 50px;
 	width: 150px;
+}
+
+.song-title {
+	border-top: 1px solid rgba(90, 204, 175, 0.5);
+	padding: 10px;
+	font-size: 20px;
+	min-width: 500px;
+}
+
+.song-title:hover .edit-icon {
+	visibility: visible;
+	opacity: 0.5;
+}
+
+.song-title:hover {
+	background-color: rgba(0,0,0,0.05);
+	cursor: pointer;
+}
+
+.song-title:active {
+	background-color: rgb(123, 182, 236);
+}
+
+.song-list {
+	padding: 0;
+}
+
+.edit-icon {
+	float: right;
+	width: 24px;
+	height: 24px;
+	margin-top: -4px;
+	padding: 8px 14px;
+  font-family: Arial, Verdana;
+  background: url(../images/pencil.png);
+	background-blend-mode: luminosity;
+  background-position: 20px 4px;
+  background-repeat: no-repeat;
+	border-radius: 4px;
+	visibility: hidden;
 }
