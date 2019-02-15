@@ -114,17 +114,33 @@ document.addEventListener("DOMContentLoaded", () =>{
         title: newSongTitle.value
       })
     }).then(res => res.json())
-    .then(showNewlyCreatedSong)
+    .then(song => showNewSong(song.id))
   };
+
+	function showNewSong(the_id) {
+		let id = the_id;
+
+		fetch(`http://localhost:3000/api/v1/songs/${id}`)
+		.then(response => response.json())
+		.then(song => {
+
+			const container = document.querySelector('.container');
+			container.style.color = 'rgb(61, 100, 122)';
+			container.innerHTML = `
+				<h1 class="headline">${song.title}</h1>`;
+				displaySections(song);
+
+	})
+	}
 
   function newSongForm() {
     container.innerHTML = '';
     const songCard = document.createElement("div");
     songCard.className = "song-card";
     songCard.innerHTML = `
-      <form id="new-song-form">
-      <input id="new-song-title" type="text" placeholder="Song Title"><br>
-      <button id="submit-new-song" type="submit" class="container-buttons">Submit</button>
+      <form data-id="" class="snippet-form" id="new-song-form">
+      <input  id="new-song-title" type="text" placeholder="Song Title"><br>
+      <button id="submit-new-song" type="submit" class="submit">Submit</button>
       </form>
     `;
     container.append(songCard);

@@ -45,7 +45,7 @@ function viewCompletedSongs() {
 	const container = document.querySelector('.container');
 	container.style.color = 'rgb(61, 100, 122)';
 	container.innerHTML = `
-		<h1 class="headline">Songs Currently Being Written</h1>
+		<h1 class="headline">Completed Songs Written with SongScribe!</h1>
 		<ul class="song-list"></ul>
 	`;
 
@@ -53,13 +53,13 @@ function viewCompletedSongs() {
 	.then(response => response.json())
 	.then(songs => songs.forEach(song => {
 
-		if (song.complete === true) {
+		if (song.snippets.length === 18) {
 
 			let songTitle = document.createElement('li');
 			let editIcon = document.createElement('div');
 			let songList = document.querySelector('.song-list');
 			songTitle.setAttribute("data-id", `${song.id}`);
-			songTitle.className = "song-title";
+			songTitle.className = "song-title-complete";
 			songTitle.style.listStyle = 'none';
 			songTitle.innerText = song.title;
 
@@ -81,6 +81,10 @@ function hoverSound(e) {
 	var audio = document.getElementsByTagName("audio")[0];
 	audio.play();
 }
+
+
+
+
 
 function showSongInProgress(e) {
 	let id = e.target.dataset.id;
@@ -167,6 +171,7 @@ function displaySections(song) {
 		sectionDiv.style.position = "relative";
 		sectionDiv.id = `section-${section.id}`;
 		sectionDiv.className = "section-div"
+		sectionDiv.dataset.name = `${section.section_type}`
 		container.append(sectionDiv);
 		sectionDiv.append(labelDiv);
 	})
@@ -181,7 +186,30 @@ function displaySections(song) {
 	})
 
 	const existingSectionDivs = Array.from(document.getElementsByClassName("section-div"))
-	existingSectionDivs.forEach(div => verseSectionForm(div))
+
+
+	existingSectionDivs.forEach(div => {
+		if (div.dataset.name === "verse") {
+			if (div.childNodes.length <= 4) {
+				verseSectionForm(div)
+			}
+		}
+
+		if (div.dataset.name === "chorus") {
+			if (div.childNodes.length <= 2) {
+				verseSectionForm(div)
+			}
+		}
+
+		if (div.dataset.name === "chorus") {
+			if (div.childNodes.length <= 2) {
+				verseSectionForm(div)
+			}
+		}
+
+
+
+	})
 	if(existingSectionDivs.length === 0){
 		const sectionDiv = document.createElement('div');
 		const labelDiv = document.createElement('div');

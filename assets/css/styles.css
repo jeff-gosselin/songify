@@ -112,7 +112,7 @@ h2 {
 	width: 150px;
 }
 
-.song-title {
+.song-title, .song-title-complete {
 	border-top: 1px solid rgba(90, 204, 175, 0.5);
 	padding: 10px;
 	font-size: 20px;
@@ -125,7 +125,7 @@ h2 {
 	opacity: 0.5;
 }
 
-.song-title:hover {
+.song-title:hover, .song-title-complete:hover {
 	background-color: rgba(0,0,0,0.05);
 	cursor: pointer;
 }
@@ -193,7 +193,7 @@ h2 {
 	margin-top: 40px;
 }
 
-.snippet-form textarea {
+.snippet-form textarea, #new-song-title {
 	font: 20px 'PT Sans', sans-serif;
 	color: rgba(0,0,0,0.45);
 	width: 90%;
@@ -206,7 +206,7 @@ h2 {
 	padding: 10px;
 }
 
-.snippet-form textarea::placeholder { /* Most modern browsers support this now. */
+.snippet-form textarea::placeholder, .snippet-form input::placeholder { /* Most modern browsers support this now. */
    color:    #cdcdcd;
 }
 
