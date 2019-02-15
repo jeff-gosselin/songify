@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         title: newSongTitle.value
       })
     }).then(res => res.json())
-    .then(song => showNewSong(song.id))
+    .then(showNewlyCreatedSong)
   };
 
 	function showNewSong(the_id) {

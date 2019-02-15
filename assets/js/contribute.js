@@ -96,7 +96,7 @@ function showSongInProgress(e) {
 		const container = document.querySelector('.container');
 		container.style.color = 'rgb(61, 100, 122)';
 		container.innerHTML = `
-			<h1 class="headline">${song.title}</h1>`;
+			<h1 id="song-${song.id}" class="headline">${song.title}</h1>`;
 			displaySections(song);
 
 
@@ -127,14 +127,48 @@ function verseSectionForm(div) {
 		<textarea name="snippet" class="effect-1" data-type="verse" placeholder="Drop a line or two here." rows="2" required></textarea>
 		<input class="submit" name="submit" type="submit" value="Submit Lyrical Snippet">
 	`;
-	vForm.addEventListener('submit', submitSnippet);
+	vForm.addEventListener('submit', whichSubmit);
 	div.append(vForm);
+}
+
+function whichSubmit(e) {
+	e.preventDefault()
+	if(!!e.target.parentElement.dataset.id){
+		submitSnippet(e)
+	} else {
+		submitSection(e)
+	}
+}
+
+function submitSection(e) {
+	const song_id = document.querySelector(".headline").id.slice(5);
+	const typeArray = ["verse", "verse", "verse", "chorus"];
+	const section_type = typeArray[Math.floor(Math.random() * typeArray.length)]
+
+	fetch(`http://localhost:3000/api/v1/sections`, {
+		method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+		},
+		body: JSON.stringify({
+			song_id,
+			section_type
+		})
+	}).then(res => res.json())
+	.then(data => {
+		submitSnippet(e)
+	});
+
 }
 
 function submitSnippet(e) {
 	e.preventDefault();
 	const section_id = e.target.parentElement.id.slice(8);
 	const content = e.target.snippet.value;
+
+	console.log(`section_id: ${section_id}`);
+	console.log(`content: ${content}`);
 
 	fetch(`http://localhost:3000/api/v1/snippets`, {
 		method: 'POST',
@@ -147,7 +181,10 @@ function submitSnippet(e) {
 			content
 		})
 	}).then(res => res.json())
-	.then(snippet => console.log(snippet))
+	.then(data => {
+		console.log("response data from post to snippets");
+		 console.log(data)
+	})
 }
 
 function displaySections(song) {
@@ -172,6 +209,7 @@ function displaySections(song) {
 		sectionDiv.id = `section-${section.id}`;
 		sectionDiv.className = "section-div"
 		sectionDiv.dataset.name = `${section.section_type}`
+		sectionDiv.dataset.id = `${section.id}`
 		container.append(sectionDiv);
 		sectionDiv.append(labelDiv);
 	})
