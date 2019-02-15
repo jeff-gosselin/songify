@@ -141,6 +141,7 @@ function whichSubmit(e) {
 }
 
 function submitSection(e) {
+	console.log("hello from inside submitSection")
 	const song_id = document.querySelector(".headline").id.slice(5);
 	const typeArray = ["verse", "verse", "verse", "chorus"];
 	const section_type = typeArray[Math.floor(Math.random() * typeArray.length)]
@@ -163,6 +164,7 @@ function submitSection(e) {
 }
 
 function submitSnippet(e) {
+	console.log("hello from inside submitSnippet")
 	e.preventDefault();
 	const section_id = e.target.parentElement.id.slice(8);
 	const content = e.target.snippet.value;
@@ -181,10 +183,7 @@ function submitSnippet(e) {
 			content
 		})
 	}).then(res => res.json())
-	.then(data => {
-		console.log("response data from post to snippets");
-		 console.log(data)
-	})
+	.then(listSongsInProgress)
 }
 
 function displaySections(song) {
@@ -256,7 +255,16 @@ function displaySections(song) {
 		sectionDiv.className = "section-div"
 		container.append(sectionDiv);
 		sectionDiv.append(labelDiv);
-		verseSectionForm(sectionDiv)
+		verseSectionForm(sectionDiv);
+	} else if (!document.querySelector("input")) {
+		const sectionDiv = document.createElement('div');
+		const labelDiv = document.createElement('div');
+		labelDiv.className = "section-label";
+		sectionDiv.style.position = "relative";
+		sectionDiv.className = "section-div"
+		container.append(sectionDiv);
+		sectionDiv.append(labelDiv);
+		verseSectionForm(sectionDiv);
 	}
 	// console.log(sectionContentArray);
 
